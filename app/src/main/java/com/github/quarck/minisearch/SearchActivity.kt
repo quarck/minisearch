@@ -45,7 +45,8 @@ class SearchActivity : AppCompatActivity()  {
         val query = searchQuery.text.toString()
         val url = "https://www.google.ie/search?q=" + Uri.encode(query);
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
         this.startActivity(intent)
-        this.finish()
+//        this.finish()
     }
 }
