@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Search</string>
+
+    <!-- Strings related to login -->
+    <string name="search_here">Search term</string>
+    <string name="search">SEARCH</string>
+</resources>
