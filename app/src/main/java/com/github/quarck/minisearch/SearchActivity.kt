@@ -5,7 +5,13 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.KeyEvent
 import kotlinx.android.synthetic.main.activity_search.*
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
+import android.widget.TextView.OnEditorActionListener
+
+
 
 /**
  * A login screen that offers login via email/password.
@@ -18,6 +24,16 @@ class SearchActivity : AppCompatActivity()  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
         search_button.setOnClickListener { doSearch() }
+
+        searchQuery.setOnEditorActionListener(
+                OnEditorActionListener {
+                    _, actionId, _ ->
+                    if (actionId == EditorInfo.IME_ACTION_SEND) {
+                        doSearch()
+                        return@OnEditorActionListener true
+                    }
+                    false
+                })
     }
 
     override fun onResume() {
