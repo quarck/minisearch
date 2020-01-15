@@ -8,4 +8,7 @@
     <string name="create_a_note_reminder">Create a note/reminder:</string>
     <string name="note_text">Note text</string>
     <string name="note_voice_typing">note voice typing</string>
+    <string name="title_activity_create_event_result">CreateEventResultActivity</string>
+    <string name="new_event">New event</string>
+    <string name="created">Created:</string>
 </resources>
