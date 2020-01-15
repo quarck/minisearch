@@ -1,6 +1,7 @@
 package com.github.quarck.minisearch
 
 import android.app.Activity
+import android.content.ComponentName
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -23,7 +24,7 @@ class SearchActivity : AppCompatActivity()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
-        search_button.setOnClickListener { doSearch() }
+        // search_button.setOnClickListener { doSearch() }
 
         searchQuery.setOnEditorActionListener(
                 OnEditorActionListener {
@@ -34,11 +35,26 @@ class SearchActivity : AppCompatActivity()  {
                     }
                     false
                 })
+
+        reminderText.setOnEditorActionListener(
+                OnEditorActionListener {
+                    _, actionId, _ ->
+                    if (actionId == EditorInfo.IME_ACTION_SEND) {
+                        doCreateNote()
+                        return@OnEditorActionListener true
+                    }
+                    false
+                })
+
+        imageButtonVoiceTyping.setOnClickListener{
+            doCreateVoiceNote()
+        }
     }
 
     override fun onResume() {
         super.onResume()
         searchQuery.text.clear();
+        reminderText.text.clear();
     }
 
     private fun doSearch() {
@@ -48,5 +64,24 @@ class SearchActivity : AppCompatActivity()  {
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
         this.startActivity(intent)
 //        this.finish()
+    }
+
+    private fun doCreateNote() {
+        val text = reminderText.text.toString()
+        val intent = Intent(Intent.ACTION_MAIN)
+        intent.setComponent(ComponentName("com.github.quarck.cnlight", "com.github.quarck.calnotify.ui.CreateNoteActivity"))
+        intent.putExtra("voice", false)
+        intent.putExtra("text", text)
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+        this.startActivity(intent)
+    }
+
+    private fun doCreateVoiceNote() {
+        val intent = Intent(Intent.ACTION_MAIN)
+        intent.setComponent(ComponentName("com.github.quarck.cnlight", "com.github.quarck.calnotify.ui.CreateNoteActivity"))
+        intent.putExtra("voice", true)
+        intent.putExtra("text", "")
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+        this.startActivity(intent)
     }
 }

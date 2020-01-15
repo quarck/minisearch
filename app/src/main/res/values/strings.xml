@@ -4,4 +4,8 @@
     <!-- Strings related to login -->
     <string name="search_here">Search term</string>
     <string name="search">SEARCH</string>
+    <string name="google_search">Google Search:</string>
+    <string name="create_a_note_reminder">Create a note/reminder:</string>
+    <string name="note_text">Note text</string>
+    <string name="note_voice_typing">note voice typing</string>
 </resources>
