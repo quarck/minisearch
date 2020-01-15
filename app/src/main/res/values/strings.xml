@@ -11,4 +11,6 @@
     <string name="title_activity_create_event_result">CreateEventResultActivity</string>
     <string name="new_event">New event</string>
     <string name="created">Created:</string>
+    <string name="voice_note">Voice reminder:</string>
+    <string name="voice_search">Voice Search</string>
 </resources>

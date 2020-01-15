@@ -189,6 +189,22 @@ class CalendarUtils(val ctx: Context) {
     fun viewCalendarEvent(eventId: Long, startTime: Long, endTime: Long)
             = ctx.startActivity(intentForAction(Intent.ACTION_VIEW, eventId, startTime, endTime))
 
+    fun updateEventTitle(eventId: Long, title: String) : Boolean {
+        var ret = false
+        try {
+            val values = ContentValues()
+
+            values.put(CalendarContract.Events.TITLE, title)
+            val updateUri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, eventId)
+            ret = ctx.contentResolver.update(updateUri, values, null, null) > 0
+        }
+        catch (ex: Exception) {
+            Log.e("", "Exception while reading calendar event: ${ex}")
+        }
+
+        return ret
+    }
+
     companion object {
         const val MINUTE_IN_MILLISECONDS: Long = 60L * 1000L
     }

@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,6 +10,46 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.github.quarck.minisearch.SearchActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/searchQueryLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+
+        <ImageButton
+            android:id="@+id/imageButtonVoiceTypingSearch"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="16dp"
+            app:srcCompat="@drawable/baseline_keyboard_voice_black_48"
+            android:contentDescription="@string/voice_search"
+            android:layout_alignParentEnd="true"
+            />
+
+        <EditText
+            android:id="@+id/searchQuery"
+            style="@android:style/Widget.Material.EditText"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:ellipsize="end"
+            android:hint="@string/search_here"
+            android:imeOptions="actionSend"
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="12dp"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:background="@drawable/border"
+            android:importantForAutofill="no"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/imageButtonVoiceTypingSearch"/>
+
+
+    </RelativeLayout>
+
 
     <TextView
         android:id="@+id/textViewGsLabel"
@@ -23,31 +63,29 @@
         android:focusable="false"
         android:clickable="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:layout_above="@id/searchQueryLayout"
         />
 
-    <EditText
-        android:id="@+id/searchQuery"
-        style="@android:style/Widget.Material.EditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="4dp"
-        android:ellipsize="end"
-        android:hint="@string/search_here"
-        android:imeOptions="actionSend"
-        android:inputType="text"
-        android:maxLines="1"
-        android:padding="16dp"
-        android:singleLine="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:background="@drawable/border"
-        android:importantForAutofill="no" />
 
+    <ImageButton
+        android:id="@+id/imageButtonVoiceTyping"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_above="@id/searchQueryLayout"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="100dp"
+        android:contentDescription="@string/note_voice_typing"
+        app:srcCompat="@drawable/baseline_keyboard_voice_black_48"
+        android:background="@drawable/border"
+        />
 
     <TextView
-        android:id="@+id/textViewMakeAReminder"
+        android:id="@+id/textViewMakeAReminderVoice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/create_a_note_reminder"
+        android:text="@string/voice_note"
         android:paddingStart="6dp"
         android:paddingEnd="16dp"
         android:paddingTop="28dp"
@@ -55,46 +93,7 @@
         android:focusable="false"
         android:clickable="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
+
+        android:layout_above="@id/imageButtonVoiceTyping"
         />
-
-    <EditText
-        android:id="@+id/reminderText"
-        style="@android:style/Widget.Material.EditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="4dp"
-        android:ellipsize="end"
-        android:hint="@string/note_text"
-        android:imeOptions="actionSend"
-        android:inputType="text"
-        android:maxLines="1"
-        android:padding="16dp"
-        android:singleLine="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:background="@drawable/border"
-        android:importantForAutofill="no" />
-
-    <!--Button
-        android:id="@+id/search_button"
-        style="?android:textAppearanceMedium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:padding="16dp"
-        android:text="@string/search"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:background="?android:attr/selectableItemBackground"
-        tools:ignore="LabelFor"
-        android:visibility="gone" /-->
-
-    <ImageButton
-        android:id="@+id/imageButtonVoiceTyping"
-        android:layout_width="match_parent"
-        android:layout_margin="32dp"
-        android:layout_height="200dp"
-        app:srcCompat="@drawable/baseline_keyboard_voice_black_48"
-        android:contentDescription="@string/note_voice_typing" />
-
-
-</LinearLayout>
+</RelativeLayout>
