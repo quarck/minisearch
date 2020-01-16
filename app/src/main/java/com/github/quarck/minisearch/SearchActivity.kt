@@ -10,10 +10,19 @@ import android.os.Bundle
 import android.os.Handler
 import android.speech.RecognizerIntent
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import android.widget.TextView.OnEditorActionListener
 import kotlinx.android.synthetic.main.activity_search.*
+import android.text.Editable
+import android.text.TextWatcher
+import android.support.v4.app.SupportActivity
+import android.support.v4.app.SupportActivity.ExtraData
+import android.support.v4.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.text.format.DateFormat
+import android.text.format.DateUtils
 
 
 /**
@@ -38,8 +47,24 @@ class SearchActivity : AppCompatActivity()  {
                         doSearch()
                         return@OnEditorActionListener true
                     }
+
                     false
                 })
+
+        searchQuery.addTextChangedListener(object : TextWatcher {
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                imageButtonVoiceTypingSearch.visibility =
+                        if (searchQuery.text.isNotBlank()) View.GONE else View.VISIBLE
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable) {
+            }
+        })
+
 
         noteText.setOnEditorActionListener(
                 OnEditorActionListener {
@@ -62,12 +87,18 @@ class SearchActivity : AppCompatActivity()  {
         imageViewSettings.setOnClickListener{
             onSettings()
         }
+
+        textViewDate.text =
+                DateUtils.formatDateTime(
+                        this, System.currentTimeMillis(),
+                        DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_WEEKDAY)
     }
 
     override fun onResume() {
         super.onResume()
-        searchQuery.text.clear();
-//        reminderText.text.clear();
+        searchQuery.text.clear()
+        noteText.text.clear()
+        imageButtonVoiceTypingSearch.visibility = View.VISIBLE
     }
 
     fun openGoogleSearchByHack(query: String): Boolean {

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E0F7FA"
+    android:background="#EEEEEE"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -12,6 +12,31 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.github.quarck.minisearch.SearchActivity">
 
+    <TextView
+        android:id="@+id/textViewDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="16dp"
+        android:text="DateHere"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+
+    <TextView
+        android:id="@+id/textViewSomeFurtherDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:text="Some further deetails here"
+        android:layout_below="@id/textViewDate"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:visibility="gone"/>
 
     <RelativeLayout
         android:id="@+id/searchQueryLayout"
@@ -20,14 +45,6 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/imageButtonVoiceTypingSearch"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_alignParentEnd="true"
-            android:contentDescription="@string/voice_search"
-            android:padding="16dp"
-            app:srcCompat="@drawable/baseline_keyboard_voice_black_48" />
 
         <EditText
             android:id="@+id/searchQuery"
@@ -35,7 +52,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_toStartOf="@id/imageButtonVoiceTypingSearch"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="24dp"
             android:background="@drawable/border"
             android:ellipsize="end"
             android:hint="@string/search_here"
@@ -45,10 +66,21 @@
             android:maxLines="1"
             android:padding="12dp"
             android:singleLine="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:layout_alignBaseline="@id/imageButtonVoiceTypingSearch"
-            />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
+        <!--
+ -->
+        <ImageButton
+            android:id="@+id/imageButtonVoiceTypingSearch"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_alignBottom="@id/searchQuery"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="2dp"
+            android:background="@color/colorInput"
+            android:contentDescription="@string/voice_search"
+            android:padding="14dp"
+            app:srcCompat="@drawable/baseline_keyboard_voice_black_36" />
 
     </RelativeLayout>
 
@@ -101,6 +133,7 @@
         style="@android:style/Widget.Material.EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@id/textViewMakeAReminderVoice"
         android:layout_alignParentStart="true"
         android:background="@drawable/border"
         android:ellipsize="end"
@@ -111,8 +144,7 @@
         android:maxLines="1"
         android:padding="12dp"
         android:singleLine="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:layout_above="@id/textViewMakeAReminderVoice"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
 
     <TextView
@@ -141,6 +173,6 @@
         android:clickable="true"
         android:contentDescription="@string/settings_button"
         android:focusable="true"
-        app:srcCompat="@drawable/baseline_more_vert_black_36" />
+        app:srcCompat="@drawable/baseline_more_vert_black_24" />
 
 </RelativeLayout>
