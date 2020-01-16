@@ -10,43 +10,44 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#E0F7FA">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             tools:context=".CreateEventResultActivity">
+
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="16dp"
                 android:text="@string/created"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:padding="16dp"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewEventContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:padding="16dp"
-                />
+                android:text="TextView"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <Button
-               android:id="@+id/buttonRetake"
-               style="?android:textAppearanceLarge"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_margin="32dp"
-               android:padding="32dp"
-               android:text="Re-take"
-               android:textStyle="bold"
-               android:gravity="center"
-               android:background="?android:attr/selectableItemBackground"
-               tools:ignore="LabelFor" />
+                android:id="@+id/buttonRetake"
+                style="?android:textAppearanceLarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="32dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center"
+                android:padding="32dp"
+                android:text="Re-take"
+                android:textStyle="bold"
+                tools:ignore="LabelFor" />
         </LinearLayout>
 
 
