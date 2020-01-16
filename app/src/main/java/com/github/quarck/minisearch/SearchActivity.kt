@@ -41,16 +41,16 @@ class SearchActivity : AppCompatActivity()  {
                     false
                 })
 
-//        reminderText.setOnEditorActionListener(
-//                OnEditorActionListener {
-//                    _, actionId, _ ->
-//                    if (actionId == EditorInfo.IME_ACTION_SEND) {
-//                        doCreateNote()
-//                        return@OnEditorActionListener true
-//                    }
-//                    false
-//                })
-//
+        noteText.setOnEditorActionListener(
+                OnEditorActionListener {
+                    _, actionId, _ ->
+                    if (actionId == EditorInfo.IME_ACTION_SEND) {
+                        doCreateNote()
+                        return@OnEditorActionListener true
+                    }
+                    false
+                })
+
         imageButtonVoiceTyping.setOnClickListener{
             doCreateVoiceNote()
         }
@@ -118,9 +118,9 @@ class SearchActivity : AppCompatActivity()  {
         }
     }
 
-//    private fun doCreateNote() {
-//        doCreateNote(reminderText.text.toString(), false)
-//    }
+    private fun doCreateNote() {
+        doCreateNote(noteText.text.toString(), false)
+    }
 
     private fun doCreateVoiceNote() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)

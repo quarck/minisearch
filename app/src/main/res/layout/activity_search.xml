@@ -45,7 +45,9 @@
             android:maxLines="1"
             android:padding="12dp"
             android:singleLine="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_alignBaseline="@id/imageButtonVoiceTypingSearch"
+            />
 
 
     </RelativeLayout>
@@ -93,6 +95,41 @@
         android:text="@string/voice_note"
 
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+    <EditText
+        android:id="@+id/noteText"
+        style="@android:style/Widget.Material.EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/border"
+        android:ellipsize="end"
+        android:hint="@string/note_text"
+        android:imeOptions="actionSend"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:maxLines="1"
+        android:padding="12dp"
+        android:singleLine="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_above="@id/textViewMakeAReminderVoice"/>
+
+
+    <TextView
+        android:id="@+id/textViewTextNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/noteText"
+        android:clickable="false"
+        android:focusable="false"
+        android:paddingStart="6dp"
+        android:paddingTop="28dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="4dp"
+        android:text="@string/text_reminder"
+
+        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
 
     <ImageView
         android:id="@+id/imageViewSettings"
