@@ -106,17 +106,13 @@ class CalendarUtils(val ctx: Context) {
         return ret
     }
 
-    fun createEvent(title: String, text: String, startTime: Long, endTime: Long, reminderMinutesBefore: Long) : Long {
+    fun createEvent(calendarId: Long, title: String, text: String, startTime: Long, endTime: Long, reminderMinutesBefore: Long) : Long {
 
         var eventId = -1L
 
-        var calendars = getCalendars().filter { !it.isReadOnly && it.isSynced && it.isVisible}
-        if (calendars.size > 1) {
-            val cal2 = calendars.filter { it.isPrimary }
-            if (cal2.size > 0) {
-                calendars = cal2
-            }
-        }
+        val calendars = getCalendars().filter { it.calendarId == calendarId}
+        if (calendars.isEmpty())
+            return eventId
 
         val calendar = calendars[0]
 

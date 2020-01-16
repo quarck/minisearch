@@ -13,4 +13,5 @@
     <string name="created">Created:</string>
     <string name="voice_note">Voice reminder:</string>
     <string name="voice_search">Voice Search</string>
+    <string name="settings_button">settings button</string>
 </resources>

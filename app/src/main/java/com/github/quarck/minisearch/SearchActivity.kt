@@ -1,30 +1,19 @@
 package com.github.quarck.minisearch
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.SearchManager
-import android.content.ComponentName
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.speech.RecognizerIntent
 import android.support.v7.app.AppCompatActivity
-import android.view.KeyEvent
-import kotlinx.android.synthetic.main.activity_search.*
 import android.view.inputmethod.EditorInfo
-import android.widget.TextView
+import android.widget.ArrayAdapter
 import android.widget.TextView.OnEditorActionListener
-import android.content.ActivityNotFoundException
-import android.content.Context
-import android.support.v4.content.ContextCompat.startActivity
-import android.content.Context.SEARCH_SERVICE
-import android.support.v4.content.ContextCompat.getSystemService
-import android.support.v4.app.SupportActivity
-import android.support.v4.app.SupportActivity.ExtraData
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
-
-
+import kotlinx.android.synthetic.main.activity_search.*
 
 
 /**
@@ -68,6 +57,10 @@ class SearchActivity : AppCompatActivity()  {
 
         imageButtonVoiceTypingSearch.setOnClickListener{
             doVoiceSearch()
+        }
+
+        imageViewSettings.setOnClickListener{
+            onSettings()
         }
     }
 
@@ -114,7 +107,7 @@ class SearchActivity : AppCompatActivity()  {
         val utils = CalendarUtils(this)
         val start = System.currentTimeMillis() + 30 * 60 * 1000L
         val end = start + 15 * 60 * 1000L
-        val eventId = utils.createEvent(text, "#task", start, end, 1)
+        val eventId = utils.createEvent(Settings(this).calendarToUse, text, "#task", start, end, 1)
         if (eventId != -1L) {
             val intent = Intent(this, CreateEventResultActivity::class.java)
             intent.putExtra("text", text)
@@ -162,4 +155,28 @@ class SearchActivity : AppCompatActivity()  {
             }
         }
     }
+
+    private fun onSettings() {
+        val cals = CalendarUtils(this).getCalendars().filter { it.isVisible && it.isSynced && !it.isReadOnly}
+
+        val names = cals.map{ "${it.displayName} (${it.accountName})" }.toTypedArray()
+        val ids = cals.map{ it.calendarId }.toTypedArray()
+
+        val builderSingle = AlertDialog.Builder(this)
+        builderSingle.setIcon(R.drawable.ic_launcher_foreground)
+        builderSingle.setTitle("Select calendar")
+
+        val arrayAdapter = ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice, names)
+
+        builderSingle.setNegativeButton("cancel", DialogInterface.OnClickListener { dialog, which -> dialog.dismiss() })
+
+        builderSingle.setAdapter(arrayAdapter) {
+            dialog, which ->
+            Settings(this).calendarToUse = ids[which]
+            dialog.dismiss()
+        }
+
+        builderSingle.show()
+    }
+
 }

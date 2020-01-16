@@ -96,4 +96,17 @@
 
         android:layout_above="@id/imageButtonVoiceTyping"
         />
+
+    <ImageView
+        android:id="@+id/imageViewSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/baseline_more_vert_black_36"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="4dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/settings_button" />
+
 </RelativeLayout>
