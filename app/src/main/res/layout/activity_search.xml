@@ -80,7 +80,7 @@
             android:background="@color/colorInput"
             android:contentDescription="@string/voice_search"
             android:padding="14dp"
-            app:srcCompat="@drawable/baseline_keyboard_voice_black_36" />
+            app:srcCompat="@drawable/baseline_keyboard_voice_black_24" />
 
     </RelativeLayout>
 

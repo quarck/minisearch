@@ -91,7 +91,8 @@ class SearchActivity : AppCompatActivity()  {
         textViewDate.text =
                 DateUtils.formatDateTime(
                         this, System.currentTimeMillis(),
-                        DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_WEEKDAY)
+                        DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_WEEKDAY
+                                or DateUtils.FORMAT_SHOW_YEAR)
     }
 
     override fun onResume() {
