@@ -3,8 +3,13 @@ package com.github.quarck.minisearch
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.SearchManager
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -23,17 +28,25 @@ import android.support.v4.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.text.format.DateFormat
 import android.text.format.DateUtils
+import android.util.Log
 
 
 /**
  * A login screen that offers login via email/password.
  */
-class SearchActivity : AppCompatActivity()  {
+class SearchActivity : AppCompatActivity(), SensorEventListener {
 
     private val REQUEST_SPEECH_RECOGNIZER_NOTE = 3000
     private val REQUEST_SPEECH_RECOGNIZER_WEBSEARCH = 3001
 
     private val handler = Handler()
+
+    private lateinit var sensorManager: SensorManager
+    private var pressureSensor: Sensor? = null
+    private var accelerometer: Sensor? = null
+
+    private var lastGFactor: Double = 0.0
+    private var lastPressure: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,6 +106,24 @@ class SearchActivity : AppCompatActivity()  {
                         this, System.currentTimeMillis(),
                         DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_WEEKDAY
                                 or DateUtils.FORMAT_SHOW_YEAR)
+
+
+        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+
+        pressureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE)
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+
+        if (pressureSensor == null) {
+
+            val list = sensorManager.getSensorList(Sensor.TYPE_PRESSURE)
+            if (list.size > 0)
+                pressureSensor = list[0]
+
+            if (pressureSensor == null) {
+                textViewPressure.visibility = View.GONE
+                Log.i("", "No pressure sensor!!")
+            }
+        }
     }
 
     override fun onResume() {
@@ -100,19 +131,21 @@ class SearchActivity : AppCompatActivity()  {
         searchQuery.text.clear()
         noteText.text.clear()
         imageButtonVoiceTypingSearch.visibility = View.VISIBLE
-    }
 
-    fun openGoogleSearchByHack(query: String): Boolean {
-        try {
-            val intent = Intent(Intent.ACTION_WEB_SEARCH)
-            intent.setPackage("com.google.android.googlequicksearchbox")
-            intent.putExtra(SearchManager.QUERY, query)
-            startActivity(intent)
-            return true
-        } catch (ex: Exception) {
-            return false
+        pressureSensor?.apply {
+            sensorManager.registerListener(this@SearchActivity, this, SensorManager.SENSOR_DELAY_NORMAL)
+        }
+
+        accelerometer?.apply {
+            sensorManager.registerListener(this@SearchActivity, this, SensorManager.SENSOR_DELAY_NORMAL)
         }
     }
+
+    override fun onPause() {
+        super.onPause()
+        sensorManager.unregisterListener(this)
+    }
+
 
     fun openSearchInAWebBrowser(query: String) {
         val url = "https://www.google.ie/search?q=" + Uri.encode(query);
@@ -122,11 +155,7 @@ class SearchActivity : AppCompatActivity()  {
     }
 
     private fun doSearch(query: String) {
-
-//        if (!openGoogleSearchByHack(query)) {
-            openSearchInAWebBrowser(query)
-  //      }
-
+        openSearchInAWebBrowser(query)
         this.finish()
     }
 
@@ -210,5 +239,55 @@ class SearchActivity : AppCompatActivity()  {
 
         builderSingle.show()
     }
+
+
+
+    // Sensor Listener
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+    }
+
+    // Sensor Listener
+    override fun onSensorChanged(event: SensorEvent?) {
+        if (event == null)
+            return
+
+        when (event.sensor.type) {
+            Sensor.TYPE_PRESSURE ->
+                onPressure(event.values[0].toDouble())
+            Sensor.TYPE_ACCELEROMETER ->
+                if (event.values.size == 3)
+                    onAccel(event.values[0], event.values[1], event.values[2])
+        }
+//        val lux = event.values[0]
+
+    }
+
+    private fun onAccel(x: Float, y: Float, z: Float) {
+        val summary = Math.sqrt((x*x + y*y + z*z).toDouble())
+        val gVal = SensorManager.STANDARD_GRAVITY.toDouble()
+        val gFactor = Math.round(summary / gVal * 1000.0) / 1000.0
+        val gFactorWithKalman = 0.3 * gFactor + 0.7 * lastGFactor
+
+        if (gFactorWithKalman != lastGFactor) {
+            lastGFactor = gFactorWithKalman
+            runOnUiThread{  
+                textViewAccel.text = String.format("%1.2f g", lastGFactor)
+            }
+        }
+    }
+
+    private fun onPressure(x: Double) {
+        val atmopshere = SensorManager.PRESSURE_STANDARD_ATMOSPHERE.toDouble()
+        val pressure = Math.round(x / atmopshere * 1000.0 ) / 1000.0
+        val pressureWithKalman = 0.3 * pressure + 0.7 * lastPressure
+
+        if (pressureWithKalman != lastPressure) {
+            lastPressure = pressureWithKalman
+            runOnUiThread{
+                textViewPressure.text = String.format("%1.2f atm", lastPressure)
+            }
+        }
+    }
+
 
 }
