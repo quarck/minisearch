@@ -45,8 +45,8 @@ class SearchActivity : AppCompatActivity(), SensorEventListener {
     private var pressureSensor: Sensor? = null
     private var accelerometer: Sensor? = null
 
-    private var lastGFactor: Double = 0.0
-    private var lastPressure: Double = 0.0
+    private var lastGFactor: Double = Double.NaN
+    private var lastPressure: Double = Double.NaN
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -266,11 +266,15 @@ class SearchActivity : AppCompatActivity(), SensorEventListener {
         val summary = Math.sqrt((x*x + y*y + z*z).toDouble())
         val gVal = SensorManager.STANDARD_GRAVITY.toDouble()
         val gFactor = Math.round(summary / gVal * 1000.0) / 1000.0
-        val gFactorWithKalman = 0.3 * gFactor + 0.7 * lastGFactor
+        val gFactorWithKalman =
+                if (!lastGFactor.isNaN())
+                    0.3 * gFactor + 0.7 * lastGFactor
+                else
+                    gFactor * 1.00001
 
         if (gFactorWithKalman != lastGFactor) {
             lastGFactor = gFactorWithKalman
-            runOnUiThread{  
+            runOnUiThread{
                 textViewAccel.text = String.format("%1.2f g", lastGFactor)
             }
         }
@@ -279,7 +283,11 @@ class SearchActivity : AppCompatActivity(), SensorEventListener {
     private fun onPressure(x: Double) {
         val atmopshere = SensorManager.PRESSURE_STANDARD_ATMOSPHERE.toDouble()
         val pressure = Math.round(x / atmopshere * 1000.0 ) / 1000.0
-        val pressureWithKalman = 0.3 * pressure + 0.7 * lastPressure
+        val pressureWithKalman =
+                if (!lastPressure.isNaN())
+                    0.3 * pressure + 0.7 * lastPressure
+                else
+                    pressure * 1.00001
 
         if (pressureWithKalman != lastPressure) {
             lastPressure = pressureWithKalman
