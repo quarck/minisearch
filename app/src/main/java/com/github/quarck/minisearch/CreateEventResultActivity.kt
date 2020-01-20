@@ -40,11 +40,12 @@ class CreateEventResultActivity : AppCompatActivity() {
                 startActivityForResult(intent, NEW_VOICE_REQUEST)
             }
 
-            handler.postDelayed({this@CreateEventResultActivity.finish()}, 5000L)
 
         } else {
             buttonRetake.visibility = View.GONE
         }
+
+        handler.postDelayed({this@CreateEventResultActivity.finish()}, 5000L)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

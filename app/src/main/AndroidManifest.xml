@@ -30,7 +30,10 @@
         <activity
             android:name=".CreateEventResultActivity"
             android:label="@string/new_event"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:excludeFromRecents="true"
+            android:noHistory="true"/>
+
         <activity
             android:name=".SearchActivity"
             android:excludeFromRecents="true"
