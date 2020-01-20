@@ -12,170 +12,6 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.github.quarck.minisearch.SearchActivity">
 
-    <TextView
-        android:id="@+id/textViewDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="16dp"
-        android:text="DateHere"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-
-    <TextView
-        android:id="@+id/textViewAccel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textViewDate"
-        android:layout_alignParentStart="true"
-        android:layout_marginEnd="20dp"
-        android:text="NaN g"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="#303F9F"
-        android:visibility="visible" />
-
-    <TextView
-        android:id="@+id/textViewPressure"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textViewDate"
-        android:layout_toEndOf="@id/textViewAccel"
-        android:text="NaN atm"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="#00796B"
-        android:visibility="visible" />
-
-
-    <RelativeLayout
-        android:id="@+id/searchQueryLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
-
-
-        <EditText
-            android:id="@+id/searchQuery"
-            style="@android:style/Widget.Material.EditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="24dp"
-            android:background="@drawable/border"
-            android:ellipsize="end"
-            android:hint="@string/search_here"
-            android:imeOptions="actionSend"
-            android:importantForAutofill="no"
-            android:inputType="text"
-            android:maxLines="1"
-            android:padding="12dp"
-            android:singleLine="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-        <!--
- -->
-        <ImageButton
-            android:id="@+id/imageButtonVoiceTypingSearch"
-            android:layout_width="46dp"
-            android:layout_height="46dp"
-            android:layout_alignBottom="@id/searchQuery"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="2dp"
-            android:background="@color/colorInput"
-            android:contentDescription="@string/voice_search"
-            android:padding="14dp"
-            app:srcCompat="@drawable/baseline_keyboard_voice_black_24" />
-
-    </RelativeLayout>
-
-
-    <TextView
-        android:id="@+id/textViewGsLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/searchQueryLayout"
-        android:clickable="false"
-        android:focusable="false"
-        android:paddingStart="6dp"
-        android:paddingTop="4dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="4dp"
-        android:text="@string/google_search"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-
-    <ImageButton
-        android:id="@+id/imageButtonVoiceTyping"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_above="@id/searchQueryLayout"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="100dp"
-        android:background="@drawable/border"
-        android:contentDescription="@string/note_voice_typing"
-        app:srcCompat="@drawable/baseline_keyboard_voice_black_48" />
-
-    <TextView
-        android:id="@+id/textViewMakeAReminderVoice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/imageButtonVoiceTyping"
-        android:clickable="false"
-        android:focusable="false"
-        android:paddingStart="6dp"
-        android:paddingTop="28dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="4dp"
-        android:text="@string/voice_note"
-
-        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-    <EditText
-        android:id="@+id/noteText"
-        style="@android:style/Widget.Material.EditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/textViewMakeAReminderVoice"
-        android:layout_alignParentStart="true"
-        android:background="@drawable/border"
-        android:ellipsize="end"
-        android:hint="@string/note_text"
-        android:imeOptions="actionSend"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        android:maxLines="1"
-        android:padding="12dp"
-        android:singleLine="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-
-    <TextView
-        android:id="@+id/textViewTextNote"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/noteText"
-        android:clickable="false"
-        android:focusable="false"
-        android:paddingStart="6dp"
-        android:paddingTop="28dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="4dp"
-        android:text="@string/text_reminder"
-
-        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-
     <ImageView
         android:id="@+id/imageViewSettings"
         android:layout_width="wrap_content"
@@ -187,5 +23,138 @@
         android:contentDescription="@string/settings_button"
         android:focusable="true"
         app:srcCompat="@drawable/baseline_more_vert_black_24" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="16dp"
+            android:text="DateHere"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        <TextView
+            android:id="@+id/textViewGsLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:focusable="false"
+            android:paddingStart="6dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="4dp"
+            android:text="@string/google_search"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+        <RelativeLayout
+            android:id="@+id/searchQueryLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/searchQuery"
+                style="@android:style/Widget.Material.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/border"
+                android:ellipsize="end"
+                android:hint="@string/search_here"
+                android:imeOptions="actionSend"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="12dp"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <!--
+     -->
+            <ImageButton
+                android:id="@+id/imageButtonVoiceTypingSearch"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_alignBottom="@id/searchQuery"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="2dp"
+                android:background="@color/colorInput"
+                android:contentDescription="@string/voice_search"
+                android:padding="14dp"
+                app:srcCompat="@drawable/baseline_keyboard_voice_black_24" />
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/textViewTextNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:focusable="false"
+            android:paddingStart="6dp"
+            android:paddingTop="30dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="4dp"
+            android:text="@string/text_reminder"
+
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+        <EditText
+            android:id="@+id/noteText"
+            style="@android:style/Widget.Material.EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:ellipsize="end"
+            android:hint="@string/note_text"
+            android:imeOptions="actionSend"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="12dp"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+
+        <TextView
+            android:id="@+id/textViewMakeAReminderVoice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:focusable="false"
+            android:paddingStart="6dp"
+            android:paddingTop="28dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="4dp"
+            android:text="@string/voice_note"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+
+        <ImageButton
+            android:id="@+id/imageButtonVoiceTyping"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="100dp"
+            android:background="@drawable/border"
+            android:contentDescription="@string/note_voice_typing"
+            app:srcCompat="@drawable/baseline_keyboard_voice_black_48" />
+
+    </LinearLayout>
+
 
 </RelativeLayout>

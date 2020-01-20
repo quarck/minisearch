@@ -34,19 +34,12 @@ import android.util.Log
 /**
  * A login screen that offers login via email/password.
  */
-class SearchActivity : AppCompatActivity(), SensorEventListener {
+class SearchActivity : AppCompatActivity() {
 
     private val REQUEST_SPEECH_RECOGNIZER_NOTE = 3000
     private val REQUEST_SPEECH_RECOGNIZER_WEBSEARCH = 3001
 
     private val handler = Handler()
-
-    private lateinit var sensorManager: SensorManager
-    private var pressureSensor: Sensor? = null
-    private var accelerometer: Sensor? = null
-
-    private var lastGFactor: Double = Double.NaN
-    private var lastPressure: Double = Double.NaN
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,44 +99,17 @@ class SearchActivity : AppCompatActivity(), SensorEventListener {
                         this, System.currentTimeMillis(),
                         DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_WEEKDAY
                                 or DateUtils.FORMAT_SHOW_YEAR)
-
-
-        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-
-        pressureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE)
-        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-
-        if (pressureSensor == null) {
-
-            val list = sensorManager.getSensorList(Sensor.TYPE_PRESSURE)
-            if (list.size > 0)
-                pressureSensor = list[0]
-
-            if (pressureSensor == null) {
-                textViewPressure.visibility = View.GONE
-                Log.i("", "No pressure sensor!!")
-            }
-        }
-    }
+   }
 
     override fun onResume() {
         super.onResume()
         searchQuery.text.clear()
         noteText.text.clear()
         imageButtonVoiceTypingSearch.visibility = View.VISIBLE
-
-        pressureSensor?.apply {
-            sensorManager.registerListener(this@SearchActivity, this, SensorManager.SENSOR_DELAY_NORMAL)
-        }
-
-        accelerometer?.apply {
-            sensorManager.registerListener(this@SearchActivity, this, SensorManager.SENSOR_DELAY_NORMAL)
-        }
     }
 
     override fun onPause() {
         super.onPause()
-        sensorManager.unregisterListener(this)
     }
 
 
@@ -238,63 +204,6 @@ class SearchActivity : AppCompatActivity(), SensorEventListener {
         }
 
         builderSingle.show()
-    }
-
-
-
-    // Sensor Listener
-    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-    }
-
-    // Sensor Listener
-    override fun onSensorChanged(event: SensorEvent?) {
-        if (event == null)
-            return
-
-        when (event.sensor.type) {
-            Sensor.TYPE_PRESSURE ->
-                onPressure(event.values[0].toDouble())
-            Sensor.TYPE_ACCELEROMETER ->
-                if (event.values.size == 3)
-                    onAccel(event.values[0], event.values[1], event.values[2])
-        }
-//        val lux = event.values[0]
-
-    }
-
-    private fun onAccel(x: Float, y: Float, z: Float) {
-        val summary = Math.sqrt((x*x + y*y + z*z).toDouble())
-        val gVal = SensorManager.STANDARD_GRAVITY.toDouble()
-        val gFactor = Math.round(summary / gVal * 1000.0) / 1000.0
-        val gFactorWithKalman =
-                if (!lastGFactor.isNaN())
-                    0.3 * gFactor + 0.7 * lastGFactor
-                else
-                    gFactor * 1.00001
-
-        if (gFactorWithKalman != lastGFactor) {
-            lastGFactor = gFactorWithKalman
-            runOnUiThread{
-                textViewAccel.text = String.format("%1.2f g", lastGFactor)
-            }
-        }
-    }
-
-    private fun onPressure(x: Double) {
-        val atmopshere = SensorManager.PRESSURE_STANDARD_ATMOSPHERE.toDouble()
-        val pressure = Math.round(x / atmopshere * 1000.0 ) / 1000.0
-        val pressureWithKalman =
-                if (!lastPressure.isNaN())
-                    0.3 * pressure + 0.7 * lastPressure
-                else
-                    pressure * 1.00001
-
-        if (pressureWithKalman != lastPressure) {
-            lastPressure = pressureWithKalman
-            runOnUiThread{
-                textViewPressure.text = String.format("%1.2f atm", lastPressure)
-            }
-        }
     }
 
 
